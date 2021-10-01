@@ -9,6 +9,7 @@
 <%@ page import="com.model2.mvc.common.Page"%>
 <%@ page import="com.model2.mvc.common.util.CommonUtil"%>
 
+<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 <%
 
 	List<Product> list= (List<Product>)request.getAttribute("list");
@@ -22,6 +23,7 @@
 	System.out.println(":: listProduct의 searchCondition :: "+searchCondition);
 	System.out.println(":: listProduct의 searchKeyword :: "+searchKeyword);
 %>
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
 
 <html>
 <head>
@@ -30,12 +32,14 @@
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script type="text/javascript">
+<!--
 	//검색 / page 두가지 경우 모두 Form 전송을 위해 JavaScrpt 이용  
 	function fncGetProductList(currentPage) {
 		console.log(currentPage);
 		document.getElementById("currentPage").value = currentPage;
    		document.detailForm.submit();
 }
+-->
 
 </script>
 </head>
@@ -44,7 +48,7 @@
 
 <div style="width:98%; margin-left:10px;">
 
-<form name="detailForm" action="/listProduct.do?menu=<%=request.getParameter("menu")%>" method="post">
+<form name="detailForm" action="/listProduct.do?menu=${param.menu}" method="post">
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
