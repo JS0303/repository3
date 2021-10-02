@@ -1,8 +1,10 @@
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashMap"%>
 <%@ page contentType="text/html; charset=euc-kr" %>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page import="java.util.List"  %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.HashMap"%>
 
 <%@ page import="com.model2.mvc.service.domain.Product" %>
 <%@ page import="com.model2.mvc.common.Search" %>
@@ -58,17 +60,27 @@
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left:10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
+				<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 				<%
 				if (request.getParameter("menu").equals("search")){
 				%>
+				/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+				<c:if test="${param.menu=='search'}">
 					<td width="93%" class="ct_ttl01">상품 목록조회</td>
+				</c:if>
+				<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 				<%
 				}else{
 				%>
+				/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+				<c:if test="${param.menu=='manage'}">
 					<td width="93%" class="ct_ttl01">상품 관리</td>
+				</c:if>
+				<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 				<%
 				}
 				%>
+				/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
 				</tr>
 			</table>
 		</td>
@@ -83,11 +95,16 @@
 	<tr>
 		<td align="right">
 			<select name="searchCondition" class="ct_input_g" style="width:80px">
+				<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 				<option value="0" <%= (searchCondition.equals("0") ? "selected" : "")%>>상품번호</option>
 				<option value="1" <%= (searchCondition.equals("1") ? "selected" : "")%>>상품명</option>
 				<option value="2" <%= (searchCondition.equals("2") ? "selected" : "")%>>상품가격</option>
+				/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+				<option value="0"><menu.searchCondition="0" ? "selected" : "" />상품번호</option>
+				<option value="1"><menu.searchCondition="1" ? "selected" : "" />상품명</option>
+				<option value="2"><menu.searchCondition="2" ? "selected" : "" />상품가격</option>
 			</select>
-			<input type="text" name="searchKeyword" value="<%= searchKeyword %>" class="ct_input_g" style="width:200px; height:19px" />
+			<input type="text" name="searchKeyword" value="${searchKeyword}" class="ct_input_g" style="width:200px; height:19px" />
 		</td>
 	
 		<td align="right" width="70">
@@ -111,7 +128,7 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top:10px;">
 	<tr>
-		<td colspan="11" >전체  <%= resultPage.getTotalCount() %> 건수, 현재 <%= resultPage.getCurrentPage() %> 페이지</td>
+		<td colspan="11" >전체  ${resultPage.totalCount} 건수, 현재 ${resultPage.currentPage} 페이지</td>
 	</tr>
 	<tr>
 		<td class="ct_list_b" width="100">No</td>
@@ -127,28 +144,32 @@
 	<tr>
 		<td colspan="11" bgcolor="808285" height="1"></td>
 	</tr>
-	
+	<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 	<%
 		for(int i=0; i<list.size(); i++) {
 			Product product = list.get(i);
 		%>
-	
-	<tr class="ct_list_pop">
-		<td align="center"><%= i + 1 %></td>
-		<td></td>
-				<td align="left">
-				<a href="/getProduct.do?prodNo=<%=product.getProdNo()%>&menu=<%= request.getParameter("menu")%>"><%=product.getProdName()%></a>
-				</td>
-		
-		<td></td>
-		<td align="left"><%=product.getPrice() %></td>
-		<td></td>
-		<td align="left"><%=product.getRegDate() %></td>
-		<td></td>
-		<td align="left"></td>	
-	</tr>
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+	<c:forEach var="i" items="${list}">
+		<tr class="ct_list_pop">
+			<td align="center">${i.prodNo-9999}</td>
+			<td></td>
+					<td align="left">
+					<a href="/getProduct.do?prodNo=${i.prodNo}&menu=${param.menu}">${i.prodName}</a>
+					</td>
+			
+			<td></td>
+			<td align="left">${i.price}</td>
+			<td></td>
+			<td align="left">${i.regDate}</td>
+			<td></td>
+			<td align="left"></td>	
+		</tr>
+	</c:forEach>
 	<tr>
+	<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 	<% } %>	
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
 	</tr>
 </table>
@@ -157,21 +178,46 @@
 	<tr>
 		<td align="center">
 		<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %>
-					◀ 이전
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+			<c:if test="${ resultPage.currentPage <= resultPage.pageUnit }">
+			◀ 이전
+			</c:if>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% }else{ %>
-					<a href="javascript:fncGetProductList('<%=resultPage.getCurrentPage()-1%>')">◀ 이전</a>
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
+				<a href="javascript:fncGetUserList('${ resultPage.currentPage-1}')">◀ 이전</a>
+			</c:if>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% } %>
-
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
-					<a href="javascript:fncGetProductList('<%=i %>');"><%=i %></a>
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+			<c:forEach var="i" begin="0" end="4">
+				<a href="javascript:fncGetProductList('${i+1}');">${i+1}</a>
+			</c:forEach>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% 	}  %>
-	
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% if( resultPage.getEndUnitPage() >= resultPage.getMaxPage() ){ %>
-					이후 ▶
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+			<c:if test="${ resultPage.endUnitPage >= resultPage.maxPage }">
+			이후 ▶
+			</c:if>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% }else{ %>
-					<a href="javascript:fncGetProductList('<%=resultPage.getEndUnitPage()+1%>')">이후 ▶</a>
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>	
+			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
+				<a href="javascript:fncGetUserList('${resultPage.endUnitPage+1}')">이후 ▶</a>
+			</c:if>
+			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% } %>	
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
+		
 			
     	</td>
 	</tr>

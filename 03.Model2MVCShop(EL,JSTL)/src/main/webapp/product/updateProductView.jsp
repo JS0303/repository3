@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
 
+<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 <%@ page import="com.model2.mvc.service.domain.Product" %>
 <%@ page import="com.model2.mvc.service.product.dao.*" %>
 <%@ page import="java.util.*"  %>
@@ -10,6 +11,7 @@
 		System.out.println("여기는 updateProductView.jsp입니다.");
 		System.out.println("updateProductView.jsp의 product : "+product);
 %>
+/////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
 
 <html>
 <head>
@@ -57,7 +59,7 @@ function fncAddProduct(){
 
 <form name="detailForm" method="post" >
 
-<input type="hidden" name="prodNo" value="<%=product.getProdNo() %>">
+<input type="hidden" name="prodNo" value="${product.prodNo}">
 
 <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
 	<tr>
@@ -91,7 +93,7 @@ function fncAddProduct(){
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105"><input 	type="text" name="prodName" class="ct_input_g" 
-										style="width: 100px; height: 19px" maxLength="20" value="<%=product.getProdName()%>"></td>
+										style="width: 100px; height: 19px" maxLength="20" value="${product.prodName}"></td>
 				</tr>
 			</table>
 		</td>
@@ -105,7 +107,7 @@ function fncAddProduct(){
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
-			<input type="text" name="prodDetail" value="<%=product.getProdDetail() %>" class="ct_input_g" 
+			<input type="text" name="prodDetail" value="${product.prodDetail}" class="ct_input_g" 
 						style="width: 100px; height: 19px" maxLength="10"	minLength="6">
 		</td>
 	</tr>
@@ -117,7 +119,7 @@ function fncAddProduct(){
 			제조일자 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="text" readonly="readonly" name="manuDate" value="<%=product.getManuDate() %>" 	
+		<td class="ct_write01"><input type="text" readonly="readonly" name="manuDate" value="${product.manuDate}" 	
 						class="ct_input_g" style="width: 100px; height: 19px" maxLength="10" minLength="6">&nbsp;
 						<img 	src="../images/ct_icon_date.gif" width="15" height="15" 
 									onclick="show_calendar('document.detailForm.manuDate', document.detailForm.manuDate.value)" /></td>
@@ -130,7 +132,7 @@ function fncAddProduct(){
 			가격 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01"><input type="text" name="price" value="<%=product.getPrice() %>"
+		<td class="ct_write01"><input type="text" name="price" value="${product.price}"
 						class="ct_input_g" style="width: 100px; height: 19px" maxLength="50"/>&nbsp;원</td>
 	</tr>
 	<tr>
@@ -140,7 +142,7 @@ function fncAddProduct(){
 		<td width="104" class="ct_write">상품이미지</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01"><input	type="text" name="fileName" class="ct_input_g" 
-						style="width: 200px; height: 19px" maxLength="13" value="<%=product.getFileName() %>"/></td>
+						style="width: 200px; height: 19px" maxLength="13" value="${product.fileName}"/></td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
