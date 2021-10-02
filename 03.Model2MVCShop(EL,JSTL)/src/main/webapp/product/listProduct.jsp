@@ -150,18 +150,21 @@
 			Product product = list.get(i);
 		%>
 /////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
-	<c:forEach var="i" items="${list}">
+	
+	<c:set var="i" value="0" />
+	<c:forEach var="product" items="${list}">
+		<c:set var="i" value="${ i+1 }" />
 		<tr class="ct_list_pop">
-			<td align="center">${i.prodNo-9999}</td>
+			<td align="center">${i}</td>
 			<td></td>
-					<td align="left">
-					<a href="/getProduct.do?prodNo=${i.prodNo}&menu=${param.menu}">${i.prodName}</a>
-					</td>
+			<td align="left">
+			<a href="/getProduct.do?prodNo=${product.prodNo}&menu=${param.menu}">${product.prodName}</a>
+			</td>
 			
 			<td></td>
-			<td align="left">${i.price}</td>
+			<td align="left">${product.price}</td>
 			<td></td>
-			<td align="left">${i.regDate}</td>
+			<td align="left">${product.regDate}</td>
 			<td></td>
 			<td align="left"></td>	
 		</tr>
@@ -188,7 +191,7 @@
 			<% }else{ %>
 /////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
 			<c:if test="${ resultPage.currentPage > resultPage.pageUnit }">
-				<a href="javascript:fncGetUserList('${ resultPage.currentPage-1}')">◀ 이전</a>
+				<a href="javascript:fncGetProductList('${ resultPage.currentPage-1}')">◀ 이전</a>
 			</c:if>
 			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% } %>
@@ -196,8 +199,8 @@
 			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<%	for(int i=resultPage.getBeginUnitPage();i<= resultPage.getEndUnitPage() ;i++){	%>
 /////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>
-			<c:forEach var="i" begin="0" end="4">
-				<a href="javascript:fncGetProductList('${i+1}');">${i+1}</a>
+			<c:forEach var="i"  begin="${resultPage.beginUnitPage}" end="${resultPage.endUnitPage}" step="1">
+				<a href="javascript:fncGetProductList('${ i }');">${ i }</a>
 			</c:forEach>
 			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% 	}  %>
@@ -212,7 +215,7 @@
 			<% }else{ %>
 /////////////////////// EL / JSTL 적용으로 주석 처리 //////////////////////// --%>	
 			<c:if test="${ resultPage.endUnitPage < resultPage.maxPage }">
-				<a href="javascript:fncGetUserList('${resultPage.endUnitPage+1}')">이후 ▶</a>
+				<a href="javascript:fncGetProductList('${resultPage.endUnitPage+1}')">이후 ▶</a>
 			</c:if>
 			<%-- /////////////////////// EL / JSTL 적용으로 주석 처리 ////////////////////////
 			<% } %>	
