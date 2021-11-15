@@ -12,16 +12,16 @@ public class Product {
 	private String prodName;
 	private int prodNo;
 	private Date regDate;
-	private String proTranCode;
+	private String prodTranCode;
 	
 	public Product(){
 	}
 	
-	public String getProTranCode() {
-		return proTranCode;
+	public String getProdTranCode() {
+		return prodTranCode;
 	}
-	public void setProTranCode(String proTranCode) {
-		this.proTranCode = proTranCode;
+	public void setProdTranCode(String prodTranCode) {
+		this.prodTranCode = prodTranCode;
 	}
 	public String getFileName() {
 		return fileName;
@@ -70,6 +70,6 @@ public class Product {
 	public String toString() {
 		return "ProductVO : [fileName]" + fileName
 				+ "[manuDate]" + manuDate+ "[price]" + price + "[prodDetail]" + prodDetail
-				+ "[prodName]" + prodName + "[prodNo]" + prodNo;
+				+ "[prodName]" + prodName + "[prodNo]" + prodNo + "[prodTranCode]" + prodTranCode;
 	}	
 }

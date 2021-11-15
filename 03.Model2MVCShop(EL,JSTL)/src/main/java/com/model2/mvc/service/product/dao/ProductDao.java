@@ -96,20 +96,20 @@ public class ProductDao {
 		
 		Connection con = DBUtil.getConnection();
 		
-		String sql = "SELECT prod_no, prod_name, prod_detail, manufacture_day, price, image_file FROM product ";
+		String sql = "select p.prod_no, p.prod_name, p.prod_detail, p.manufacture_day, p.price, p.image_file, p.reg_date, t.TRAN_STATUS_CODE from product p, transaction t where p.prod_no=t.prod_no(+) ";
 		
 		if (search.getSearchCondition() != null) {
 			if (search.getSearchCondition().equals("0") && !search.getSearchKeyword().equals("")) {
-				sql += " WHERE prod_no='" + search.getSearchKeyword()+ "'";
+				sql += " and p.PROD_NO='" + search.getSearchKeyword()+ "'";
 				
 			} else if (search.getSearchCondition().equals("1") && !search.getSearchKeyword().equals("")) {
-				sql += " WHERE prod_name LIKE '%" + search.getSearchKeyword()+ "%'";
+				sql += " and p.PROD_NAME LIKE '%" + search.getSearchKeyword()+ "%'";
 				
 			}else if (search.getSearchCondition().equals("2") && !search.getSearchKeyword().equals("")) {
-				sql += " WHERE price='" + search.getSearchKeyword()+ "'";
+				sql += " and p.PRICE='" + search.getSearchKeyword()+ "'";
 			}
 		}
-		sql += " ORDER BY prod_no";
+		sql += " ORDER BY p.prod_no";
 		
 		System.out.println("ProductDao::Original SQL :: " + sql);
 		
@@ -134,6 +134,8 @@ public class ProductDao {
 			product.setManuDate(rs.getString("manufacture_day"));
 			product.setPrice(rs.getInt("price"));
 			product.setFileName(rs.getString("image_file"));
+			product.setProdTranCode(rs.getString("TRAN_STATUS_CODE"));
+			product.setRegDate(rs.getDate("reg_date"));
 			list.add(product);
 		}
 		
